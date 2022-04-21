@@ -14,7 +14,12 @@ class ProductCard extends StatelessWidget {
         decoration: _DecorationCard(),
         child: Stack(
           alignment: Alignment.bottomLeft,
-          children: [_TarjetaTitulo(), _DetallesTarjeta()],
+          children: [
+            _TarjetaTitulo(),
+            _DetallesTarjeta(),
+            Positioned(top: 0, right: 0, child: _precioproducto()),
+            Positioned(top: 0, left: 0, child: _Estatus()),
+          ],
         ),
       ),
     );
@@ -28,11 +33,59 @@ class ProductCard extends StatelessWidget {
           ]);
 }
 
+class _Estatus extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+     child: const FittedBox(
+        fit: BoxFit.contain,
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Text(
+              'Disponible',
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            )),
+      ),
+      width: 100,
+      height: 70,
+      alignment: Alignment.center,
+      decoration:  BoxDecoration(
+          color: Colors.yellow[800],
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20), bottomRight: Radius.circular(20))),
+    );
+  }
+}
+
+class _precioproducto extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: const FittedBox(
+        fit: BoxFit.contain,
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Text(
+              '\$250',
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            )),
+      ),
+      width: 100,
+      height: 70,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20), topRight: Radius.circular(20))),
+    );
+  }
+}
+
 class _DetallesTarjeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 50),
+      padding: const EdgeInsets.only(right: 50),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
@@ -42,11 +95,20 @@ class _DetallesTarjeta extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              'Titulo del producto',
+              'Titulo Del Producto',
               style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              'Id Del Prodcuto',
+              style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             )
@@ -57,9 +119,9 @@ class _DetallesTarjeta extends StatelessWidget {
   }
 
   BoxDecoration _TituloEstilo() => const BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),topRight: Radius.circular(20))
-      );
+      color: Colors.green,
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20), topRight: Radius.circular(20)));
 }
 
 class _TarjetaTitulo extends StatelessWidget {
