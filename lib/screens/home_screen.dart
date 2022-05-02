@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formulario/widgets/product_card.dart';
+import 'package:formulario/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
