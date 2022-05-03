@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/services/services.dart';
 import 'package:formulario/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final productservice = Provider.of<ProductServices>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

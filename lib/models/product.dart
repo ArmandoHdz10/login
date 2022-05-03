@@ -13,6 +13,7 @@ class Product {
     String? imagen;
     String nombre;
     String precio;
+    String? id;
 
     factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
