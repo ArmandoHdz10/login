@@ -45,6 +45,7 @@ class ProductScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         child: const Icon(Icons.save_rounded),
         onPressed: () {},
       ),
