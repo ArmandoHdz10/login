@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/models/models.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  final Product product;
+
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +18,14 @@ class ProductCard extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            _TarjetaTitulo(),
-            _DetallesTarjeta(),
-            Positioned(top: 0, right: 0, child: _precioproducto()),
-            Positioned(top: 0, left: 0, child: _Estatus()),
+            _TarjetaTitulo(product.imagen),
+            _DetallesTarjeta(
+              titulo: product.nombre,
+              subtitulo: product.id!,
+            ),
+            Positioned(top: 0, right: 0, child: _precioproducto(product.precio)),
+            if (!product.disponible)
+              Positioned(top: 0, left: 0, child: _Estatus()),
           ],
         ),
       ),
@@ -37,7 +44,7 @@ class _Estatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     child: const FittedBox(
+      child: const FittedBox(
         fit: BoxFit.contain,
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -49,7 +56,7 @@ class _Estatus extends StatelessWidget {
       width: 100,
       height: 70,
       alignment: Alignment.center,
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
           color: Colors.yellow[800],
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20), bottomRight: Radius.circular(20))),
@@ -58,16 +65,20 @@ class _Estatus extends StatelessWidget {
 }
 
 class _precioproducto extends StatelessWidget {
+
+  final int precio;
+
+  const _precioproducto(this.precio);
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: const FittedBox(
+      child:  FittedBox(
         fit: BoxFit.contain,
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Text(
-              '\$250',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              '\$$precio',
+              style: const TextStyle(color: Colors.white, fontSize: 25),
             )),
       ),
       width: 100,
@@ -82,6 +93,10 @@ class _precioproducto extends StatelessWidget {
 }
 
 class _DetallesTarjeta extends StatelessWidget {
+  final String titulo;
+  final String subtitulo;
+
+  const _DetallesTarjeta({required this.titulo, required this.subtitulo});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -93,10 +108,10 @@ class _DetallesTarjeta extends StatelessWidget {
         decoration: _TituloEstilo(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'Titulo Del Producto',
-              style: TextStyle(
+              titulo,
+              style: const TextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
@@ -104,8 +119,8 @@ class _DetallesTarjeta extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              'Id Del Prodcuto',
-              style: TextStyle(
+              subtitulo,
+              style: const TextStyle(
                   fontSize: 10,
                   color: Colors.white,
                   fontWeight: FontWeight.w300),
@@ -125,6 +140,10 @@ class _DetallesTarjeta extends StatelessWidget {
 }
 
 class _TarjetaTitulo extends StatelessWidget {
+  final String? url;
+
+  const _TarjetaTitulo(this.url);
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -132,9 +151,9 @@ class _TarjetaTitulo extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 300,
-        child: const FadeInImage(
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://via.placeholder.com/400x300/f6f6f6'),
+        child: FadeInImage(
+          placeholder: const AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage(url!),
           fit: BoxFit.cover,
         ),
       ),

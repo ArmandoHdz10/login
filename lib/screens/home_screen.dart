@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/screens/screens.dart';
 import 'package:formulario/services/services.dart';
 import 'package:formulario/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final productservice = Provider.of<ProductServices>(context);
+
+    if (productservice.isloading) return LoadingScreen();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -21,10 +24,12 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: productservice.products.length,
         itemBuilder: (BuildContext context, int index) => GestureDetector(
           onTap: () => Navigator.pushNamed(context, 'Producto'),
-          child: const ProductCard(),
+          child:  ProductCard(
+            product: productservice.products[index],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
