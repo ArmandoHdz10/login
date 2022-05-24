@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formulario/models/models.dart';
 import 'package:formulario/screens/screens.dart';
 import 'package:formulario/services/services.dart';
 import 'package:formulario/widgets/widgets.dart';
@@ -26,7 +27,10 @@ class HomeScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: productservice.products.length,
         itemBuilder: (BuildContext context, int index) => GestureDetector(
-          onTap: () => Navigator.pushNamed(context, 'Producto'),
+          onTap: () {
+            productservice.selectProduct = productservice.products[index].copy();
+            Navigator.pushNamed(context, 'Producto');
+          },
           child:  ProductCard(
             product: productservice.products[index],
           ),
@@ -35,7 +39,14 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         backgroundColor: Colors.green,
-        onPressed: () {},
+        onPressed: () {
+          // ignore: unnecessary_new
+          productservice.selectProduct = new Product(
+            disponible: false ,
+            nombre: '',
+            precio: 0);
+          Navigator.pushNamed(context, 'Producto');
+        },
       ),
     );
   }

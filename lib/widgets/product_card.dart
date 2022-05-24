@@ -23,7 +23,8 @@ class ProductCard extends StatelessWidget {
               titulo: product.nombre,
               subtitulo: product.id!,
             ),
-            Positioned(top: 0, right: 0, child: _precioproducto(product.precio)),
+            Positioned(
+                top: 0, right: 0, child: _precioproducto(product.precio)),
             if (!product.disponible)
               Positioned(top: 0, left: 0, child: _Estatus()),
           ],
@@ -49,7 +50,7 @@ class _Estatus extends StatelessWidget {
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Text(
-              'Disponible',
+              'No Disponible',
               style: TextStyle(color: Colors.white, fontSize: 25),
             )),
       ),
@@ -65,14 +66,13 @@ class _Estatus extends StatelessWidget {
 }
 
 class _precioproducto extends StatelessWidget {
-
   final int precio;
 
   const _precioproducto(this.precio);
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:  FittedBox(
+      child: FittedBox(
         fit: BoxFit.contain,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -151,11 +151,16 @@ class _TarjetaTitulo extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 300,
-        child: FadeInImage(
-          placeholder: const AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage(url!),
-          fit: BoxFit.cover,
-        ),
+        child: url == null
+            ? const Image(
+                image: AssetImage('assets/no-image.png'),
+                fit: BoxFit.cover,
+              )
+            : FadeInImage(
+                placeholder: const AssetImage('assets/jar-loading.gif'),
+                image: NetworkImage(url!),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

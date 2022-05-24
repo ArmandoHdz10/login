@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      debugShowCheckedModeBanner: false,
-     initialRoute: 'Home',
+     initialRoute: 'Login',
      routes: {
        'Home':(context) => const HomeScreen(),
        'Login':(context) => const LoginScreen(),
-       'Producto':(context) => const ProductScreen()
+       'Producto':(context) => const ProductScreen(),
      },
     );
   }
