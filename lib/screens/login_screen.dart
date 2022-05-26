@@ -10,42 +10,43 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AuthBackground(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 250,
-            ),
-            CardWidget(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Login',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  const SizedBox(height: 30),
-                  ChangeNotifierProvider(
-                    create: (_) => LoginForm(),
-                    child: const _TextFormFild(),
-                  ),
-                ],
+      body: AuthBackground(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 250,
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Text(
-              'Crear una nueva cuenta',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            )
-          ],
+              CardWidget(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Login',
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(height: 30),
+                    ChangeNotifierProvider(
+                      create: (_) => LoginForm(),
+                      child: const _TextFormFild(),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Crear una nueva cuenta',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -96,8 +97,8 @@ class _TextFormFild extends StatelessWidget {
             const SizedBox(height: 30),
             MaterialButton(
               onPressed: () {
-                if ( !lgnForm.isValidForm()) return;
-                Navigator.pushReplacementNamed(context,'Home');
+                if (!lgnForm.isValidForm()) return;
+                Navigator.pushReplacementNamed(context, 'Home');
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
